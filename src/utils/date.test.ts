@@ -1,5 +1,10 @@
 import { vi } from "vitest";
-import { getDateFromTimestamp, getTimestampFromNow } from "./date";
+import {
+  getDateFromTimestamp,
+  getElapsedTimestamp,
+  getTimestampFromDate,
+  getTimestampFromNow,
+} from "./date";
 
 describe("utils/date", () => {
   beforeEach(() => {
@@ -41,6 +46,20 @@ describe("utils/date", () => {
     test("should return Unix time date according to a 0 timestamp", () =>
       expect(getDateFromTimestamp(0)).toEqual(
         new Date("1970-01-01T00:00:00.000Z")
+      ));
+  });
+
+  describe("getTimestampFromDate", () => {
+    test("should return the right timestamp from a valid date", () =>
+      expect(getTimestampFromDate(new Date(1998, 10, 6, 11))).toEqual(
+        910346400000
+      ));
+  });
+
+  describe("getElapsedTimestamp", () => {
+    test("should return the right timestamp when comparing 2 different timestamps", () =>
+      expect(getElapsedTimestamp(9939600000, 999999600000)).toEqual(
+        990060000000
       ));
   });
 });
